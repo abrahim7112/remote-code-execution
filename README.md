@@ -1,3 +1,3 @@
-# angular-ivy-8xxgkn
+# remote code execution vulnerability
 
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/angular-ivy-8xxgkn)
+Scanner for a remote code execution vulnerability at the target site
